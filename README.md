@@ -330,4 +330,4 @@ Cách xử lý:
 
 ## 13. Kết luận
 
-Project này mô phỏng một ứng dụng bán túi xách khá đầy đủ cho mục tiêu học tập: có gọi API, danh sách sản phẩm, chi tiết sản phẩm, favorite, điều hướng nhiều màn hình và lưu trữ local. Với cấu trúc hiện tại, người học có thể dễ dàng mở rộng thêm chức năng hoặc thay đổi nguồn dữ liệu khi cần.
+# Project này mô phỏng một ứng dụng bán túi xách khá đầy đủ cho mục tiêu học tập: có gọi API, danh sách sản phẩm, chi tiết sản phẩm, favorite, điều hướng nhiều màn hình và lưu trữ local. Với cấu trúc hiện tại, người học có thể dễ dàng mở rộng thêm chức năng hoặc thay đổi nguồn dữ liệu khi cần.
