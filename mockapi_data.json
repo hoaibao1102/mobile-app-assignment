@@ -1,0 +1,393 @@
+[
+    {
+        "id": "1",
+        "handbagName": "Galuchat Serpenti Forever Crossbody in Red",
+        "cost": 2798,
+        "category": "Crossbody",
+        "color": [
+            "Red"
+        ],
+        "gender": true,
+        "uri": "https://cdn2.jomashop.com/media/catalog/product/cache/fc2ff48f80400416c47c36b80c0a3202/b/v/bvlgari-galuchat-serpenti-forever-crossbody-in-red287977_4.jpg",
+        "brand": "Bvlgari",
+        "percentOff": 0.42,
+        "review": [
+            {
+                "rating": 5,
+                "comment": "Thiết kế rất sang, màu đỏ nổi bật."
+            },
+            {
+                "rating": 5,
+                "comment": "Chất liệu cao cấp và hoàn thiện tốt."
+            },
+            {
+                "rating": 4,
+                "comment": "Màu sắc thực tế đẹp hơn ảnh."
+            },
+            {
+                "rating": 5,
+                "comment": "Rất đáng tiền cho một sản phẩm cao cấp."
+            }
+        ]
+    },
+    {
+        "id": "2",
+        "handbagName": "Ladies Monogram Print Shoulder Bag",
+        "category": "Shoulder Bag",
+        "cost": 215.98,
+        "color": [
+            "Vanilla",
+            "Acorn",
+            "Gray"
+        ],
+        "gender": true,
+        "uri": "https://cdn2.jomashop.com/media/catalog/product/cache/fc2ff48f80400416c47c36b80c0a3202/m/i/michael-kors-ladies-monogram-print-shoulder-bag30h1ggrl8v149_6.jpg",
+        "percentOff": 0.55,
+        "brand": "Michael Kors",
+        "review": [
+            {
+                "rating": 4,
+                "comment": "Túi đẹp, dễ phối đồ."
+            },
+            {
+                "rating": 3,
+                "comment": "Chất liệu hơi cứng, cần dùng lâu mới mềm."
+            },
+            {
+                "rating": 5,
+                "comment": "Phù hợp đi làm hàng ngày."
+            }
+        ]
+    },
+    {
+        "id": "3",
+        "handbagName": "Open Box - Logo Print Large Soft Belt Tote",
+        "color": [
+            "Silver",
+            "Gray"
+        ],
+        "cost": 583.19,
+        "category": "Shoulder Bag",
+        "gender": true,
+        "uri": "https://cdn2.jomashop.com/media/catalog/product/cache/fc2ff48f80400416c47c36b80c0a3202/b/u/burberry-mini-shield-shoulder-bag-8082580_3.jpg",
+        "brand": "Burberry",
+        "percentOff": 0.56,
+        "review": [
+            {
+                "rating": 5,
+                "comment": "Form túi chắc chắn, nhìn cao cấp."
+            },
+            {
+                "rating": 4,
+                "comment": "Size vừa đẹp, đựng đồ nhiều."
+            },
+            {
+                "rating": 5,
+                "comment": "Đây là món đồ đáng mua nhất của tôi."
+            }
+        ]
+    },
+    {
+        "id": "4",
+        "handbagName": "Logo Embroided Shoulder Bag",
+        "color": [
+            "Red"
+        ],
+        "cost": 595,
+        "category": "Shoulder Bag",
+        "gender": false,
+        "uri": "https://cdn2.jomashop.com/media/catalog/product/cache/fc2ff48f80400416c47c36b80c0a3202/f/e/ferragamo-logo-embroided-shoulder-bag-241469-769602_3.jpg",
+        "brand": "Ferragamo",
+        "percentOff": 0.41,
+        "review": [
+            {
+                "rating": 3,
+                "comment": "Màu đẹp nhưng hơi nhỏ."
+            },
+            {
+                "rating": 4,
+                "comment": "Thiết kế tinh tế, nhẹ nhàng."
+            },
+            {
+                "rating": 2,
+                "comment": "Không như mong đợi, quai mỏng."
+            }
+        ]
+    },
+    {
+        "id": "5",
+        "handbagName": "Cut Out-Detail Shoulder Bag",
+        "color": [
+            "Black",
+            "Gray"
+        ],
+        "cost": 588,
+        "category": "Shoulder Bag",
+        "gender": true,
+        "uri": "https://cdn2.jomashop.com/media/catalog/product/cache/fc2ff48f80400416c47c36b80c0a3202/f/e/ferragamo-cut-outdetail-shoulder-bag-213942-762299_2.jpg",
+        "brand": "Ferragamo",
+        "percentOff": 0.4,
+        "review": [
+            {
+                "rating": 4,
+                "comment": "Chất lượng tốt, giá hợp lý."
+            },
+            {
+                "rating": 5,
+                "comment": "Rất cá tính và phong cách."
+            },
+            {
+                "rating": 4,
+                "comment": "Màu đen dễ phối đồ."
+            }
+        ]
+    },
+    {
+        "id": "6",
+        "handbagName": "Peekaboo Iseeu Mini Leather Bag",
+        "color": [
+            "Acciaio",
+            "Palladio",
+            "Gray"
+        ],
+        "cost": 768,
+        "category": "Shoulder Bag",
+        "gender": false,
+        "uri": "https://cdn2.jomashop.com/media/catalog/product/cache/fc2ff48f80400416c47c36b80c0a3202/f/e/fendi-peekaboo-iseeu-mini-leather-bag7va530ark0f0fdy_2.jpg",
+        "brand": "Fendi",
+        "percentOff": 0.37,
+        "review": [
+            {
+                "rating": 5,
+                "comment": "Rất ưng ý, đúng hàng chính hãng."
+            },
+            {
+                "rating": 5,
+                "comment": "Chất da siêu mềm, nhẹ."
+            },
+            {
+                "rating": 4,
+                "comment": "Hơi nhỏ nhưng rất xịn."
+            }
+        ]
+    },
+    {
+        "id": "7",
+        "handbagName": "Olympia Leather Leather Crossbody Card Case",
+        "color": [
+            "Light Sesame"
+        ],
+        "cost": 278,
+        "category": "Card Case",
+        "gender": true,
+        "uri": "https://cdn2.jomashop.com/media/catalog/product/cache/fc2ff48f80400416c47c36b80c0a3202/b/u/burberry-olympia-leather-leather-crossbody-card-case8040739_3.jpg",
+        "brand": "Burberry",
+        "percentOff": 0.47,
+        "review": [
+            {
+                "rating": 3,
+                "comment": "Bình thường, không có gì đặc biệt."
+            },
+            {
+                "rating": 4,
+                "comment": "Nhỏ gọn, tiện khi đi ít đồ."
+            },
+            {
+                "rating": 2,
+                "comment": "Giá hơi cao so với size."
+            }
+        ]
+    },
+    {
+        "id": "8",
+        "handbagName": "Black Folded Business Card Holder",
+        "color": [
+            "Black"
+        ],
+        "cost": 229,
+        "category": "Card Holder",
+        "gender": true,
+        "uri": "https://cdn2.jomashop.com/media/catalog/product/cache/fc2ff48f80400416c47c36b80c0a3202/b/v/bvlgari-black-folded-business-card-holder-293552_2.jpg",
+        "brand": "Bvlgari",
+        "percentOff": 0.38,
+        "review": [
+            {
+                "rating": 4,
+                "comment": "Nhỏ gọn, tiện lợi."
+            },
+            {
+                "rating": 5,
+                "comment": "Sang trọng, đẳng cấp."
+            },
+            {
+                "rating": 4,
+                "comment": "Chất da tốt, đường may đẹp."
+            }
+        ]
+    },
+    {
+        "id": "9",
+        "handbagName": "Small Empire Leather Wallet",
+        "color": [
+            "Beige"
+        ],
+        "cost": 49.89,
+        "category": "Card Case",
+        "gender": true,
+        "uri": "https://cdn2.jomashop.com/media/catalog/product/cache/fc2ff48f80400416c47c36b80c0a3202/m/i/michael-kors-small-empire-leather-wallet32s3g8ed0l222_2.jpg",
+        "brand": "Michael Kors",
+        "percentOff": 0.62,
+        "review": [
+            {
+                "rating": 5,
+                "comment": "Chất da mềm, đẹp."
+            },
+            {
+                "rating": 4,
+                "comment": "Màu be thanh lịch."
+            },
+            {
+                "rating": 4,
+                "comment": "Đáng tiền."
+            }
+        ]
+    },
+    {
+        "id": "10",
+        "handbagName": "Moments Sterling Silver Open Bangle, Size Small",
+        "color": [
+            "Brown",
+            "Acorn"
+        ],
+        "cost": 80.98,
+        "category": "Wallets",
+        "gender": true,
+        "uri": "https://cdn2.jomashop.com/media/catalog/product/cache/fc2ff48f80400416c47c36b80c0a3202/m/i/michael-kors-ladies-signature-logo-carmen-medium-envelopetrifold-wallet-brownacorn-32s1gnme6b-252.jpg",
+        "brand": "Michael Kors",
+        "percentOff": 0.55,
+        "review": [
+            {
+                "rating": 2,
+                "comment": "Hơi nhỏ so với mong đợi."
+            },
+            {
+                "rating": 3,
+                "comment": "Chất lượng tạm ổn."
+            },
+            {
+                "rating": 1,
+                "comment": "Không hài lòng, mẫu mã không như ảnh."
+            }
+        ]
+    },
+    {
+        "id": "11",
+        "handbagName": "Peekaboo Leather Card Case Pouch",
+        "color": [
+            "Edamame"
+        ],
+        "cost": 298.99,
+        "category": "Card Case",
+        "gender": true,
+        "uri": "https://cdn2.jomashop.com/media/catalog/product/cache/fc2ff48f80400416c47c36b80c0a3202/f/e/fendi-peekaboo-leather-card-case-pouch-8ap161a91bf1l1c.jpg",
+        "brand": "Fendi",
+        "percentOff": 0.35,
+        "review": [
+            {
+                "rating": 4,
+                "comment": "Sang trọng, đáng tiền."
+            },
+            {
+                "rating": 5,
+                "comment": "Thiết kế độc đáo, da thật mềm."
+            },
+            {
+                "rating": 4,
+                "comment": "Nhỏ nhưng đựng vừa đồ cần thiết."
+            }
+        ]
+    },
+    {
+        "id": "12",
+        "handbagName": "Logo Series Small Leather Tote",
+        "color": [
+            "White"
+        ],
+        "cost": 1560,
+        "category": "Tote Bags",
+        "gender": true,
+        "uri": "https://cdn2.jomashop.com/media/catalog/product/cache/fc2ff48f80400416c47c36b80c0a3202/b/v/bvlgari-logo-series-small-leather-tote-291959_3.jpg",
+        "brand": "Bvlgari",
+        "percentOff": 0.4,
+        "review": [
+            {
+                "rating": 5,
+                "comment": "Túi đẹp, rộng rãi."
+            },
+            {
+                "rating": 5,
+                "comment": "Chất lượng tuyệt vời."
+            },
+            {
+                "rating": 4,
+                "comment": "Màu trắng dễ bẩn nhưng rất đẹp."
+            }
+        ]
+    },
+    {
+        "id": "13",
+        "handbagName": "First Sight Flap Shoulder Bag",
+        "color": [
+            "Blue",
+            "Light Blue"
+        ],
+        "cost": 1748.98,
+        "category": "Shoulder Bag",
+        "gender": true,
+        "uri": "https://cdn2.jomashop.com/media/catalog/product/cache/fc2ff48f80400416c47c36b80c0a3202/f/e/fendi-first-sight-flap-shoulder-bag-8bs072anx2f1l1k_3.jpg",
+        "brand": "Fendi",
+        "percentOff": 0.37,
+        "review": [
+            {
+                "rating": 3,
+                "comment": "Màu sắc không giống hình."
+            },
+            {
+                "rating": 4,
+                "comment": "Chất tốt nhưng giá cao."
+            },
+            {
+                "rating": 2,
+                "comment": "Không như kỳ vọng."
+            }
+        ]
+    },
+    {
+        "id": "14",
+        "handbagName": "Serpenti Forever Compact Leather Wallet",
+        "color": [
+            "Light Blue",
+            "Cyan"
+        ],
+        "cost": 444.99,
+        "category": "Wallets",
+        "gender": true,
+        "uri": "https://cdn2.jomashop.com/media/catalog/product/cache/fc2ff48f80400416c47c36b80c0a3202/a/m/Burberry-amethyst-tassel-bolo-bracelet-in-rose-platedsterling-silver-jms003978.jpg",
+        "brand": "Bvlgari",
+        "percentOff": 0.4,
+        "review": [
+            {
+                "rating": 4,
+                "comment": "Phù hợp đi làm hàng ngày."
+            },
+            {
+                "rating": 5,
+                "comment": "Màu xanh rất đẹp, dễ thương."
+            },
+            {
+                "rating": 4,
+                "comment": "Chất da bền, theo thời gian."
+            }
+        ]
+    }
+]

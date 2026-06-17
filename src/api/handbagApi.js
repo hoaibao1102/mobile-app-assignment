@@ -1,4 +1,4 @@
-const API_URL = "https://6910152245e65ab24ac584e0.mockapi.io/se181860";
+const API_URL = process.env.EXPO_PUBLIC_API_URL;
 
 export async function getHandbags() {
   try {

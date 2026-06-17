@@ -2,12 +2,13 @@ import { useCallback, useState } from "react";
 import {
   View,
   Text,
-  TextInput,
   FlatList,
   ActivityIndicator,
+  Pressable,
   StyleSheet,
 } from "react-native";
 import { useFocusEffect } from "@react-navigation/native";
+import { Ionicons } from "@expo/vector-icons";
 
 import { getHandbags } from "../api/handbagApi";
 import { BrandFilter } from "../components/BrandFilter";
@@ -23,7 +24,6 @@ export function HomeScreen({ navigation }) {
   const [handbags, setHandbags] = useState([]);
   const [favorites, setFavorites] = useState([]);
   const [selectedBrand, setSelectedBrand] = useState("All");
-  const [searchText, setSearchText] = useState("");
   const [loading, setLoading] = useState(false);
 
   const loadData = async () => {
@@ -50,9 +50,6 @@ export function HomeScreen({ navigation }) {
       if (selectedBrand === "All") return true;
       return item.brand === selectedBrand;
     })
-    .filter((item) =>
-      item.handbagName.toLowerCase().includes(searchText.toLowerCase()),
-    )
     .sort((a, b) => Number(b.cost) - Number(a.cost));
 
   const isFavorite = (handbagId) => {
@@ -84,12 +81,13 @@ export function HomeScreen({ navigation }) {
     <View style={styles.container}>
       <Text style={styles.title}>Luxury Handbags</Text>
 
-      <TextInput
-        style={styles.searchInput}
-        placeholder="Search handbag by name..."
-        value={searchText}
-        onChangeText={setSearchText}
-      />
+      <Pressable
+        style={styles.smartSearchBar}
+        onPress={() => navigation.navigate("SmartSearch")}
+      >
+        <Ionicons name="search" size={20} color={colors.muted} />
+        <Text style={styles.smartSearchText}>Smart Search</Text>
+      </Pressable>
 
       <BrandFilter
         brands={brands}
@@ -129,13 +127,21 @@ const styles = StyleSheet.create({
     color: colors.text,
     marginBottom: 14,
   },
-  searchInput: {
+  smartSearchBar: {
+    flexDirection: "row",
+    alignItems: "center",
     backgroundColor: colors.white,
     borderRadius: 14,
     padding: 12,
     borderWidth: 1,
     borderColor: colors.border,
     marginBottom: 12,
+    gap: 8,
+  },
+  smartSearchText: {
+    flex: 1,
+    fontSize: 14,
+    color: colors.muted,
   },
   empty: {
     textAlign: "center",

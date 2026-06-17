@@ -1,0 +1,449 @@
+[
+    {
+        "id": "1",
+        "handbagName": "Galuchat Serpenti Forever Crossbody in Red",
+        "cost": 2798,
+        "category": "Crossbody",
+        "color": [
+            "Red"
+        ],
+        "gender": true,
+        "uri": "https://leididonna.com/cdn/shop/files/image_525ae768-28eb-4b8c-92d1-7616e8e52200.jpg?v=1690278898",
+        "brand": "Bvlgari",
+        "percentOff": 0.42,
+        "review": [
+            {
+                "rating": 5,
+                "comment": "Thiết kế rất sang, màu đỏ nổi bật."
+            },
+            {
+                "rating": 5,
+                "comment": "Chất liệu cao cấp và hoàn thiện tốt."
+            },
+            {
+                "rating": 4,
+                "comment": "Màu sắc thực tế đẹp hơn ảnh."
+            },
+            {
+                "rating": 5,
+                "comment": "Rất đáng tiền cho một sản phẩm cao cấp."
+            }
+        ]
+    },
+    {
+        "id": "2",
+        "handbagName": "Ladies Monogram Print Shoulder Bag",
+        "category": "Shoulder Bag",
+        "cost": 215.98,
+        "color": [
+            "Vanilla",
+            "Acorn",
+            "Gray"
+        ],
+        "gender": true,
+        "uri": "https://rukminim2.flixcart.com/image/480/640/xif0q/sling-bag/6/0/z/hand-bag-1-1-12-0-l-bag-rec-iv-hand-held-bag-flaunt-it-10-0-original-imahepnznhhuhgeg.jpeg?q=90",
+        "percentOff": 0.55,
+        "brand": "Michael Kors",
+        "review": [
+            {
+                "rating": 4,
+                "comment": "Túi đẹp, dễ phối đồ."
+            },
+            {
+                "rating": 5,
+                "comment": "Giá tốt so với chất lượng."
+            },
+            {
+                "rating": 4,
+                "comment": "Đeo hằng ngày rất tiện."
+            },
+            {
+                "rating": 3,
+                "comment": "Dây đeo hơi cứng lúc mới dùng."
+            }
+        ]
+    },
+    {
+        "id": "3",
+        "handbagName": "Open Box - Logo Print Large Soft Belt Tote",
+        "cost": 583.19,
+        "category": "Shoulder Bag",
+        "color": [
+            "Silver",
+            "Gray"
+        ],
+        "gender": true,
+        "uri": "https://img4.dhresource.com/webp/m/0x0/f3/albu/km/m/18/9289fcb5-e8da-4e50-863e-589ccda5d2d2.jpg",
+        "brand": "Burberry",
+        "percentOff": 0.56,
+        "review": [
+            {
+                "rating": 5,
+                "comment": "Form túi chắc chắn, nhìn cao cấp."
+            },
+            {
+                "rating": 5,
+                "comment": "Đường may rất tỉ mỉ."
+            },
+            {
+                "rating": 4,
+                "comment": "Không gian chứa đồ khá rộng."
+            },
+            {
+                "rating": 5,
+                "comment": "Mua làm quà tặng rất phù hợp."
+            },
+            {
+                "rating": 4,
+                "comment": "Khóa kéo hoạt động mượt."
+            }
+        ]
+    },
+    {
+        "id": "4",
+        "handbagName": "Logo Embroided Shoulder Bag",
+        "cost": 595,
+        "category": "Shoulder Bag",
+        "color": [
+            "Red"
+        ],
+        "gender": false,
+        "uri": "https://img4.dhresource.com/webp/m/0x0/f3/albu/km/o/03/8fac5872-994c-4e22-9f15-c0178bee6c4b.jpg",
+        "brand": "Ferragamo",
+        "percentOff": 0.41,
+        "review": [
+            {
+                "rating": 3,
+                "comment": "Màu đẹp nhưng hơi nhỏ."
+            },
+            {
+                "rating": 4,
+                "comment": "Thiết kế khá thời trang."
+            },
+            {
+                "rating": 3,
+                "comment": "Kích thước không như mong đợi."
+            }
+        ]
+    },
+    {
+        "id": "5",
+        "handbagName": "Cut Out-Detail Shoulder Bag",
+        "cost": 588,
+        "category": "Shoulder Bag",
+        "color": [
+            "Black",
+            "Gray"
+        ],
+        "gender": true,
+        "uri": "https://cdn01.pinkoi.com/product/aCMUmRm2/0/1/640x530.jpg",
+        "brand": "Ferragamo",
+        "percentOff": 0.4,
+        "review": [
+            {
+                "rating": 4,
+                "comment": "Chất lượng tốt, giá hợp lý."
+            },
+            {
+                "rating": 5,
+                "comment": "Da mềm và rất bền."
+            },
+            {
+                "rating": 4,
+                "comment": "Thiết kế tối giản nhưng đẹp."
+            },
+            {
+                "rating": 4,
+                "comment": "Đeo lâu vẫn thoải mái."
+            }
+        ]
+    },
+    {
+        "id": "6",
+        "handbagName": "Peekaboo Iseeu Mini Leather Bag",
+        "cost": 768,
+        "category": "Shoulder Bag",
+        "color": [
+            "Acciaio",
+            "Palladio",
+            "Gray"
+        ],
+        "gender": false,
+        "uri": "https://img4.dhresource.com/webp/m/0x0/f3/albu/jc/l/31/2c575ccc-120a-454f-99ce-7e4401fd1498.jpg",
+        "brand": "Fendi",
+        "percentOff": 0.37,
+        "review": [
+            {
+                "rating": 5,
+                "comment": "Rất ưng ý, đúng hàng chính hãng."
+            },
+            {
+                "rating": 5,
+                "comment": "Thiết kế tinh tế và sang trọng."
+            },
+            {
+                "rating": 4,
+                "comment": "Nhỏ gọn nhưng vẫn chứa đủ đồ."
+            },
+            {
+                "rating": 5,
+                "comment": "Màu sắc đẹp và hiện đại."
+            },
+            {
+                "rating": 5,
+                "comment": "Hoàn thiện rất cao cấp."
+            }
+        ]
+    },
+    {
+        "id": "7",
+        "handbagName": "Olympia Leather Leather Crossbody Card Case",
+        "cost": 278,
+        "category": "Card Case",
+        "color": [
+            "Light Sesame"
+        ],
+        "gender": true,
+        "uri": "https://vinasources.com/blog/wp-content/uploads/2025/11/import-handbags-from-vietnam-1-1-750x500.jpg",
+        "brand": "Burberry",
+        "percentOff": 0.47,
+        "review": [
+            {
+                "rating": 3,
+                "comment": "Bình thường, không có gì đặc biệt."
+            },
+            {
+                "rating": 4,
+                "comment": "Tiện lợi khi mang ít đồ."
+            },
+            {
+                "rating": 3,
+                "comment": "Kích thước khá nhỏ."
+            },
+            {
+                "rating": 4,
+                "comment": "Da tốt và chắc chắn."
+            }
+        ]
+    },
+    {
+        "id": "8",
+        "handbagName": "Black Folded Business Card Holder",
+        "cost": 229,
+        "category": "Card Holder",
+        "color": [
+            "Black"
+        ],
+        "gender": true,
+        "uri": "https://laurajanemarlborough.co.nz/wp-content/uploads/2024/04/20240319_130521-1-1-600x600.jpg",
+        "brand": "Bvlgari",
+        "percentOff": 0.38,
+        "review": [
+            {
+                "rating": 4,
+                "comment": "Nhỏ gọn, tiện lợi."
+            },
+            {
+                "rating": 5,
+                "comment": "Phù hợp cho dân văn phòng."
+            },
+            {
+                "rating": 4,
+                "comment": "Da mềm và đẹp."
+            }
+        ]
+    },
+    {
+        "id": "9",
+        "handbagName": "Small Empire Leather Wallet",
+        "cost": 49.89,
+        "category": "Card Case",
+        "color": [
+            "Beige"
+        ],
+        "gender": true,
+        "uri": "https://m.media-amazon.com/images/I/41uD2IJ45rL._AC_SY1000_.jpg",
+        "brand": "Michael Kors",
+        "percentOff": 0.62,
+        "review": [
+            {
+                "rating": 5,
+                "comment": "Chất da mềm, đẹp."
+            },
+            {
+                "rating": 5,
+                "comment": "Giá rất tốt so với thương hiệu."
+            },
+            {
+                "rating": 4,
+                "comment": "Nhiều ngăn tiện dụng."
+            },
+            {
+                "rating": 5,
+                "comment": "Màu beige rất thanh lịch."
+            }
+        ]
+    },
+    {
+        "id": "10",
+        "handbagName": "Moments Sterling Silver Open Bangle, Size Small",
+        "cost": 80.98,
+        "category": "Wallets",
+        "color": [
+            "Brown",
+            "Acorn"
+        ],
+        "gender": true,
+        "uri": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRr7YXFCe9TTE22MDDOBW_Je7AEeN6b21rjFA&s",
+        "brand": "Michael Kors",
+        "percentOff": 0.55,
+        "review": [
+            {
+                "rating": 2,
+                "comment": "Hơi nhỏ so với mong đợi."
+            },
+            {
+                "rating": 3,
+                "comment": "Chất lượng ổn trong tầm giá."
+            },
+            {
+                "rating": 2,
+                "comment": "Ít ngăn chứa đồ."
+            }
+        ]
+    },
+    {
+        "id": "11",
+        "handbagName": "Peekaboo Leather Card Case Pouch",
+        "cost": 298.99,
+        "category": "Card Case",
+        "color": [
+            "Edamame"
+        ],
+        "gender": true,
+        "uri": "https://cdn.faire.com/fastly/272217aa2cc1e694a2df031367c95807424d27820eb1a4bf56308c9b055dfff2.jpeg?format=jpg&precrop=1%3A1&width=720",
+        "brand": "Fendi",
+        "percentOff": 0.35,
+        "review": [
+            {
+                "rating": 4,
+                "comment": "Sang trọng, đáng tiền."
+            },
+            {
+                "rating": 5,
+                "comment": "Thiết kế rất đẹp."
+            },
+            {
+                "rating": 4,
+                "comment": "Da cao cấp và bền."
+            },
+            {
+                "rating": 5,
+                "comment": "Phù hợp làm quà tặng."
+            }
+        ]
+    },
+    {
+        "id": "12",
+        "handbagName": "Logo Series Small Leather Tote",
+        "cost": 1560,
+        "category": "Tote Bags",
+        "color": [
+            "White"
+        ],
+        "gender": true,
+        "uri": "https://assets.manufactum.de/p/211/211116/211116_01.jpg/hand-shoulder-bag-unisex-dark-blue.jpg?w=400&scale.option=fill&h=0&canvas.aspectratio=1%3A1&canvas.width=100.0000%25&canvas.height=145.5604%25&q=90",
+        "brand": "Bvlgari",
+        "percentOff": 0.4,
+        "review": [
+            {
+                "rating": 5,
+                "comment": "Túi đẹp, rộng rãi."
+            },
+            {
+                "rating": 5,
+                "comment": "Rất phù hợp đi làm."
+            },
+            {
+                "rating": 4,
+                "comment": "Màu trắng sang trọng."
+            },
+            {
+                "rating": 5,
+                "comment": "Đáng tiền với chất lượng nhận được."
+            },
+            {
+                "rating": 4,
+                "comment": "Hoàn thiện tốt."
+            }
+        ]
+    },
+    {
+        "id": "13",
+        "handbagName": "First Sight Flap Shoulder Bag",
+        "cost": 1748.98,
+        "category": "Shoulder Bag",
+        "color": [
+            "Blue",
+            "Light Blue"
+        ],
+        "gender": true,
+        "uri": "https://p.globalsources.com/IMAGES/PDT/B1193209746/crossbody-bags.jpg?ver=5388807718",
+        "brand": "Fendi",
+        "percentOff": 0.37,
+        "review": [
+            {
+                "rating": 3,
+                "comment": "Màu sắc không giống hình."
+            },
+            {
+                "rating": 4,
+                "comment": "Thiết kế đẹp và hiện đại."
+            },
+            {
+                "rating": 3,
+                "comment": "Giá khá cao."
+            },
+            {
+                "rating": 4,
+                "comment": "Chất lượng tốt."
+            }
+        ]
+    },
+    {
+        "id": "14",
+        "handbagName": "Serpenti Forever Compact Leather Wallet",
+        "cost": 444.99,
+        "category": "Wallets",
+        "color": [
+            "Light Blue",
+            "Cyan"
+        ],
+        "gender": true,
+        "uri": "https://www.smart-handbag.com/Content/image/original/YQ0029-1-1.jpg",
+        "brand": "Bvlgari",
+        "percentOff": 0.4,
+        "review": [
+            {
+                "rating": 4,
+                "comment": "Phù hợp đi làm hàng ngày."
+            },
+            {
+                "rating": 5,
+                "comment": "Da mềm và đẹp."
+            },
+            {
+                "rating": 4,
+                "comment": "Thiết kế thanh lịch."
+            },
+            {
+                "rating": 5,
+                "comment": "Kích thước vừa vặn."
+            },
+            {
+                "rating": 4,
+                "comment": "Đóng gói cẩn thận."
+            }
+        ]
+    }
+]
