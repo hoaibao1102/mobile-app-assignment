@@ -1,4 +1,4 @@
-import { useCallback, useState } from "react";
+import { useCallback, useRef, useState } from "react";
 import {
   View,
   Text,
@@ -6,8 +6,11 @@ import {
   ScrollView,
   Pressable,
   StyleSheet,
+  PanResponder,
+  Animated,
+  Dimensions,
 } from "react-native";
-import { useFocusEffect } from "@react-navigation/native";
+import { useFocusEffect, useNavigation } from "@react-navigation/native";
 import { Ionicons } from "@expo/vector-icons";
 
 import { colors } from "../constants/colors";
@@ -17,16 +20,43 @@ import {
   getFavorites,
   removeFavorite,
 } from "../services/favoriteService";
-import { feedbacks } from "../data/feedbacks";
 import { RatingSummary } from "../components/RatingSummary";
+
+const SWIPE_THRESHOLD = 80;
 
 export function DetailScreen({ route }) {
   const { handbag } = route.params;
   const [favorites, setFavorites] = useState([]);
+  const navigation = useNavigation();
+  const translateX = useRef(new Animated.Value(0)).current;
 
-  const handbagFeedbacks = feedbacks.filter(
-    (item) => item.handbagId === handbag.id,
-  );
+  const panResponder = useRef(
+    PanResponder.create({
+      onMoveShouldSetPanResponder: (_, gesture) =>
+        gesture.dx > 10 && Math.abs(gesture.dy) < 10,
+      onPanResponderMove: (_, gesture) => {
+        if (gesture.dx > 0) {
+          translateX.setValue(gesture.dx);
+        }
+      },
+      onPanResponderRelease: (_, gesture) => {
+        if (gesture.dx > SWIPE_THRESHOLD) {
+          Animated.timing(translateX, {
+            toValue: Dimensions.get("window").width,
+            duration: 200,
+            useNativeDriver: true,
+          }).start(() => {
+            navigation.goBack();
+          });
+        } else {
+          Animated.spring(translateX, {
+            toValue: 0,
+            useNativeDriver: true,
+          }).start();
+        }
+      },
+    }),
+  ).current;
 
   const loadFavorites = async () => {
     const data = await getFavorites();
@@ -54,40 +84,45 @@ export function DetailScreen({ route }) {
   };
 
   return (
-    <ScrollView style={styles.container} showsVerticalScrollIndicator={false}>
-      <Image source={{ uri: handbag.uri }} style={styles.image} />
+    <Animated.View
+      style={[styles.container, { transform: [{ translateX }] }]}
+      {...panResponder.panHandlers}
+    >
+      <ScrollView style={styles.flex} showsVerticalScrollIndicator={false}>
+        <Image source={{ uri: handbag.uri }} style={styles.image} />
 
-      <View style={styles.content}>
-        <View style={styles.topRow}>
-          <Text style={styles.name}>{handbag.handbagName}</Text>
+        <View style={styles.content}>
+          <View style={styles.topRow}>
+            <Text style={styles.name}>{handbag.handbagName}</Text>
 
-          <Pressable onPress={handleFavoritePress}>
-            <Ionicons
-              name={isFavorite ? "heart" : "heart-outline"}
-              size={32}
-              color={isFavorite ? colors.danger : colors.muted}
-            />
-          </Pressable>
+            <Pressable onPress={handleFavoritePress}>
+              <Ionicons
+                name={isFavorite ? "heart" : "heart-outline"}
+                size={32}
+                color={isFavorite ? colors.danger : colors.muted}
+              />
+            </Pressable>
+          </View>
+
+          <Text style={styles.brand}>{handbag.brand}</Text>
+
+          <View style={styles.priceRow}>
+            <Text style={styles.cost}>{formatCurrency(handbag.cost)}</Text>
+            <Text style={styles.sale}>-{formatPercent(handbag.percentOff)}</Text>
+          </View>
+
+          <View style={styles.infoBox}>
+            <Text style={styles.info}>Category: {handbag.category}</Text>
+            <Text style={styles.info}>Color: {handbag.color?.join(", ")}</Text>
+            <Text style={styles.info}>
+              Gender: {handbag.gender ? "Female" : "Male"}
+            </Text>
+          </View>
+
+          <RatingSummary review={handbag.review} />
         </View>
-
-        <Text style={styles.brand}>{handbag.brand}</Text>
-
-        <View style={styles.priceRow}>
-          <Text style={styles.cost}>{formatCurrency(handbag.cost)}</Text>
-          <Text style={styles.sale}>-{formatPercent(handbag.percentOff)}</Text>
-        </View>
-
-        <View style={styles.infoBox}>
-          <Text style={styles.info}>Category: {handbag.category}</Text>
-          <Text style={styles.info}>Color: {handbag.color?.join(", ")}</Text>
-          <Text style={styles.info}>
-            Gender: {handbag.gender ? "Female" : "Male"}
-          </Text>
-        </View>
-
-        <RatingSummary feedbacks={handbagFeedbacks} />
-      </View>
-    </ScrollView>
+      </ScrollView>
+    </Animated.View>
   );
 }
 
@@ -95,6 +130,9 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: colors.background,
+  },
+  flex: {
+    flex: 1,
   },
   image: {
     width: "100%",

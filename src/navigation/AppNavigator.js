@@ -5,6 +5,7 @@ import { Ionicons } from "@expo/vector-icons";
 import { HomeScreen } from "../screens/HomeScreen";
 import { DetailScreen } from "../screens/DetailScreen";
 import { FavoritesScreen } from "../screens/FavoritesScreen";
+import { SearchScreen } from "../screens/SearchScreen";
 import { colors } from "../constants/colors";
 
 const Tab = createBottomTabNavigator();
@@ -19,9 +20,19 @@ function HomeStack() {
         options={{ title: "Handbags" }}
       />
       <Stack.Screen
+        name="SmartSearch"
+        component={SearchScreen}
+        options={{ title: "Smart Search" }}
+      />
+      <Stack.Screen
         name="Detail"
         component={DetailScreen}
-        options={{ title: "Handbag Detail" }}
+        options={{ title: "Handbag Detail", gestureEnabled: true }}
+      />
+      <Stack.Screen
+        name="SearchDetail"
+        component={DetailScreen}
+        options={{ title: "Handbag Detail", gestureEnabled: true }}
       />
     </Stack.Navigator>
   );
@@ -38,7 +49,7 @@ function FavoriteStack() {
       <Stack.Screen
         name="FavoriteDetail"
         component={DetailScreen}
-        options={{ title: "Handbag Detail" }}
+        options={{ title: "Handbag Detail", gestureEnabled: true }}
       />
     </Stack.Navigator>
   );

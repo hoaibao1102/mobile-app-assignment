@@ -5,14 +5,10 @@ function renderStars(number) {
   return "★".repeat(number) + "☆".repeat(5 - number);
 }
 
-export function RatingSummary({ feedbacks }) {
+export function RatingSummary({ review = [] }) {
   const groups = [5, 4, 3, 2, 1].map((rating) => {
-    const count = feedbacks.filter((item) => item.rating === rating).length;
-
-    return {
-      rating,
-      count,
-    };
+    const count = review.filter((item) => item.rating === rating).length;
+    return { rating, count };
   });
 
   return (
@@ -28,11 +24,11 @@ export function RatingSummary({ feedbacks }) {
 
       <Text style={styles.title}>Comments</Text>
 
-      {feedbacks.length === 0 ? (
+      {review.length === 0 ? (
         <Text style={styles.empty}>No feedback yet.</Text>
       ) : (
-        feedbacks.map((item) => (
-          <View key={item.id} style={styles.commentBox}>
+        review.map((item, index) => (
+          <View key={index} style={styles.commentBox}>
             <Text style={styles.star}>{renderStars(item.rating)}</Text>
             <Text style={styles.comment}>{item.comment}</Text>
           </View>
