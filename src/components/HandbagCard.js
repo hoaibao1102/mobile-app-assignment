@@ -10,7 +10,8 @@ function calcAvgRating(review = []) {
 }
 
 function renderStars(rating) {
-  const full = Math.floor(rating);
+  const rounded = Math.round(Number(rating));
+  const full = Math.min(rounded, 5);
   const empty = 5 - full;
   return "★".repeat(full) + "☆".repeat(empty);
 }
@@ -43,12 +44,17 @@ export function HandbagCard({
     >
       <View style={styles.imageContainer}>
         <Image source={{ uri: handbag.uri }} style={styles.image} />
+        {handbag.percentOff > 0 && (
+          <View style={styles.badge}>
+            <Text style={styles.badgeText}>-{formatPercent(handbag.percentOff)}</Text>
+          </View>
+        )}
         {selectMode && (
-          <View style={styles.checkboxOverlay}>
+          <View style={[styles.checkboxBadge, isSelected && styles.checkboxBadgeActive]}>
             <Ionicons
               name={isSelected ? "checkbox" : "square-outline"}
-              size={24}
-              color={isSelected ? colors.primary : colors.white}
+              size={22}
+              color={isSelected ? "#DC2626" : colors.muted}
             />
           </View>
         )}
@@ -56,43 +62,41 @@ export function HandbagCard({
 
       <View style={styles.content}>
         <View style={styles.topRow}>
-          <Text style={styles.name} numberOfLines={2}>
-            {handbag.handbagName}
-          </Text>
+          <View style={styles.titleBlock}>
+            <Text style={styles.brand}>{handbag.brand}</Text>
+            <Text style={styles.name} numberOfLines={1}>
+              {handbag.handbagName}
+            </Text>
+          </View>
 
           {!selectMode && (
-            <Pressable onPress={onFavoritePress}>
+            <Pressable onPress={onFavoritePress} style={styles.favBtn}>
               <Ionicons
                 name={isFavorite ? "heart" : "heart-outline"}
-                size={26}
-                color={isFavorite ? colors.danger : colors.muted}
+                size={22}
+                color={isFavorite ? colors.secondary : colors.muted}
               />
             </Pressable>
           )}
         </View>
 
-        <Text style={styles.brand}>{handbag.brand}</Text>
-
         <View style={styles.infoRow}>
-          <Text style={styles.cost}>{formatCurrency(handbag.cost)}</Text>
-          <Text style={styles.sale}>-{formatPercent(handbag.percentOff)}</Text>
-        </View>
-
-        <View style={styles.bottomRow}>
+          <View style={styles.costRow}>
+            <Text style={styles.cost}>{formatCurrency(handbag.cost)}</Text>
+            <View style={styles.genderBadge}>
+              <Ionicons
+                name={handbag.gender ? "woman-outline" : "man-outline"}
+                size={12}
+                color={colors.muted}
+              />
+              <Text style={styles.genderText}>
+                {handbag.gender ? "Women" : "Men"}
+              </Text>
+            </View>
+          </View>
           <View style={styles.ratingRow}>
             <Text style={styles.stars}>{renderStars(Number(avgRating))}</Text>
             <Text style={styles.ratingText}>{avgRating}</Text>
-          </View>
-
-          <View style={styles.genderRow}>
-            <Ionicons
-              name={handbag.gender ? "woman-outline" : "man-outline"}
-              size={16}
-              color={colors.success}
-            />
-            <Text style={styles.gender}>
-              {handbag.gender ? "Female" : "Male"}
-            </Text>
           </View>
         </View>
       </View>
@@ -103,57 +107,120 @@ export function HandbagCard({
 const styles = StyleSheet.create({
   card: {
     backgroundColor: colors.white,
-    borderRadius: 18,
-    marginBottom: 14,
+    borderRadius: 16,
+    marginBottom: 16,
     overflow: "hidden",
     borderWidth: 1,
     borderColor: colors.border,
   },
+  selectedCard: {
+    borderColor: "#DC2626",
+    borderWidth: 1.5,
+  },
+  imageContainer: {
+    position: "relative",
+  },
   image: {
     width: "100%",
-    height: 210,
+    height: 240,
     resizeMode: "cover",
-    backgroundColor: "#EEE",
+    backgroundColor: "#F0F0F0",
+  },
+  badge: {
+    position: "absolute",
+    top: 12,
+    left: 12,
+    backgroundColor: colors.primary,
+    paddingVertical: 4,
+    paddingHorizontal: 10,
+    borderRadius: 4,
+  },
+  badgeText: {
+    color: colors.white,
+    fontSize: 11,
+    fontWeight: "700",
+    letterSpacing: 0.5,
+  },
+  checkboxBadge: {
+    position: "absolute",
+    top: 10,
+    right: 10,
+    width: 36,
+    height: 36,
+    borderRadius: 18,
+    backgroundColor: "rgba(220, 38, 38, 0.08)",
+    alignItems: "center",
+    justifyContent: "center",
+  },
+  checkboxBadgeActive: {
+    backgroundColor: "rgba(220, 38, 38, 0.15)",
   },
   content: {
-    padding: 14,
+    padding: 16,
+    gap: 8,
   },
   topRow: {
     flexDirection: "row",
     justifyContent: "space-between",
+    alignItems: "flex-start",
     gap: 10,
   },
-  name: {
+  titleBlock: {
     flex: 1,
-    fontSize: 17,
-    fontWeight: "bold",
+  },
+  name: {
+    fontSize: 16,
+    fontWeight: "500",
     color: colors.text,
+    letterSpacing: -0.2,
   },
   brand: {
-    marginTop: 6,
+    fontSize: 11,
     color: colors.muted,
     fontWeight: "600",
+    letterSpacing: 1.2,
+    textTransform: "uppercase",
+    marginBottom: 2,
+  },
+  favBtn: {
+    width: 36,
+    height: 36,
+    borderRadius: 18,
+    backgroundColor: colors.overlay,
+    alignItems: "center",
+    justifyContent: "center",
   },
   infoRow: {
     flexDirection: "row",
     alignItems: "center",
-    marginTop: 10,
-    gap: 10,
+    justifyContent: "space-between",
+  },
+  costRow: {
+    flexDirection: "row",
+    alignItems: "center",
+    gap: 8,
   },
   cost: {
     fontSize: 18,
-    fontWeight: "bold",
+    fontWeight: "600",
     color: colors.primary,
+    letterSpacing: -0.3,
   },
-  sale: {
-    color: colors.danger,
-    fontWeight: "bold",
-  },
-  bottomRow: {
-    marginTop: 10,
+  genderBadge: {
     flexDirection: "row",
-    justifyContent: "space-between",
     alignItems: "center",
+    gap: 3,
+    paddingVertical: 2,
+    paddingHorizontal: 8,
+    borderRadius: 4,
+    backgroundColor: colors.overlay,
+  },
+  genderText: {
+    fontSize: 10,
+    fontWeight: "600",
+    color: colors.muted,
+    letterSpacing: 0.3,
+    textTransform: "uppercase",
   },
   ratingRow: {
     flexDirection: "row",
@@ -161,38 +228,13 @@ const styles = StyleSheet.create({
     gap: 4,
   },
   stars: {
-    fontSize: 14,
-    color: colors.yellow,
-    fontWeight: "bold",
+    fontSize: 12,
+    color: colors.secondary,
+    letterSpacing: 1,
   },
   ratingText: {
-    fontSize: 13,
+    fontSize: 12,
     color: colors.muted,
-    fontWeight: "600",
-  },
-  genderRow: {
-    flexDirection: "row",
-    alignItems: "center",
-    gap: 4,
-  },
-  gender: {
-    fontWeight: "bold",
-    color: colors.success,
-    fontSize: 13,
-  },
-  imageContainer: {
-    position: "relative",
-  },
-  checkboxOverlay: {
-    position: "absolute",
-    top: 10,
-    left: 10,
-    backgroundColor: "rgba(0,0,0,0.3)",
-    borderRadius: 14,
-    padding: 4,
-  },
-  selectedCard: {
-    borderColor: colors.primary,
-    borderWidth: 2,
+    fontWeight: "500",
   },
 });

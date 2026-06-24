@@ -1,4 +1,4 @@
-import { useCallback, useState } from "react";
+import { useCallback, useState, useMemo } from "react";
 import {
   View,
   Text,
@@ -6,6 +6,7 @@ import {
   ActivityIndicator,
   Pressable,
   StyleSheet,
+  SafeAreaView,
 } from "react-native";
 import { useFocusEffect } from "@react-navigation/native";
 import { Ionicons } from "@expo/vector-icons";
@@ -45,12 +46,16 @@ export function HomeScreen({ navigation }) {
 
   const brands = ["All", ...new Set(handbags.map((item) => item.brand))];
 
-  const filteredHandbags = handbags
-    .filter((item) => {
-      if (selectedBrand === "All") return true;
-      return item.brand === selectedBrand;
-    })
-    .sort((a, b) => Number(b.cost) - Number(a.cost));
+  const filteredHandbags = useMemo(
+    () =>
+      handbags
+        .filter((item) => {
+          if (selectedBrand === "All") return true;
+          return item.brand === selectedBrand;
+        })
+        .sort((a, b) => Number(b.cost) - Number(a.cost)),
+    [handbags, selectedBrand],
+  );
 
   const isFavorite = (handbagId) => {
     return favorites.some((item) => item.id === handbagId);
@@ -78,27 +83,42 @@ export function HomeScreen({ navigation }) {
   }
 
   return (
-    <View style={styles.container}>
-      <Text style={styles.title}>Luxury Handbags</Text>
+    <SafeAreaView style={styles.container}>
+      <View style={styles.header}>
+        <View>
+          <Text style={styles.headerTitle}>Luxury Handbags</Text>
+          <Text style={styles.headerSubtitle}>{filteredHandbags.length} pieces</Text>
+        </View>
+        <Pressable
+          style={styles.searchIconBtn}
+          onPress={() => navigation.navigate("SmartSearch")}
+        >
+          <Ionicons name="search" size={22} color={colors.primary} />
+        </Pressable>
+      </View>
+
+      <View style={styles.actionRow}>
+        <BrandFilter
+          brands={brands}
+          selectedBrand={selectedBrand}
+          onSelectBrand={setSelectedBrand}
+        />
+      </View>
 
       <Pressable
-        style={styles.smartSearchBar}
-        onPress={() => navigation.navigate("SmartSearch")}
+        style={styles.showroomBtn}
+        onPress={() => navigation.navigate("Showroom")}
       >
-        <Ionicons name="search" size={20} color={colors.muted} />
-        <Text style={styles.smartSearchText}>Smart Search</Text>
+        <Ionicons name="location-outline" size={14} color={colors.text} />
+        <Text style={styles.showroomBtnText}>Find a showroom near you</Text>
+        <Ionicons name="chevron-forward" size={12} color={colors.text} />
       </Pressable>
-
-      <BrandFilter
-        brands={brands}
-        selectedBrand={selectedBrand}
-        onSelectBrand={setSelectedBrand}
-      />
 
       <FlatList
         data={filteredHandbags}
         keyExtractor={(item) => item.id}
         showsVerticalScrollIndicator={false}
+        contentContainerStyle={styles.listContent}
         ListEmptyComponent={
           <Text style={styles.empty}>No handbags found.</Text>
         }
@@ -111,42 +131,60 @@ export function HomeScreen({ navigation }) {
           />
         )}
       />
-    </View>
+    </SafeAreaView>
   );
 }
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    padding: 16,
     backgroundColor: colors.background,
   },
-  title: {
-    fontSize: 28,
-    fontWeight: "bold",
-    color: colors.text,
-    marginBottom: 14,
-  },
-  smartSearchBar: {
+  header: {
     flexDirection: "row",
+    justifyContent: "space-between",
     alignItems: "center",
+    paddingHorizontal: 20,
+    paddingTop: 20,
+    paddingBottom: 4,
+  },
+  headerTitle: {
+    fontSize: 28,
+    fontWeight: "700",
+    color: colors.text,
+    letterSpacing: -0.5,
+  },
+  headerSubtitle: {
+    fontSize: 13,
+    color: colors.muted,
+    fontWeight: "500",
+    marginTop: 2,
+  },
+  searchIconBtn: {
+    width: 44,
+    height: 44,
+    borderRadius: 22,
     backgroundColor: colors.white,
-    borderRadius: 14,
-    padding: 12,
     borderWidth: 1,
     borderColor: colors.border,
-    marginBottom: 12,
-    gap: 8,
+    alignItems: "center",
+    justifyContent: "center",
   },
-  smartSearchText: {
-    flex: 1,
-    fontSize: 14,
-    color: colors.muted,
+  actionRow: {
+    paddingHorizontal: 20,
+    paddingTop: 12,
+    paddingBottom: 4,
+  },
+  listContent: {
+    paddingHorizontal: 20,
+    paddingTop: 8,
+    paddingBottom: 24,
   },
   empty: {
     textAlign: "center",
     color: colors.muted,
-    marginTop: 40,
+    marginTop: 60,
+    fontSize: 15,
   },
   center: {
     flex: 1,
@@ -157,5 +195,24 @@ const styles = StyleSheet.create({
   loadingText: {
     marginTop: 10,
     color: colors.muted,
+  },
+  showroomBtn: {
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "center",
+    gap: 6,
+    marginHorizontal: 20,
+    marginTop: 1,
+    marginBottom: 8,
+    paddingVertical: 10,
+    borderRadius: 10,
+    borderWidth: 1,
+    borderColor: colors.text,
+    backgroundColor: colors.background,
+  },
+  showroomBtnText: {
+    fontSize: 13,
+    color: colors.text,
+    fontWeight: "600",
   },
 });

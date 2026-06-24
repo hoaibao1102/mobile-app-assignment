@@ -57,7 +57,7 @@ function FilterChip({ label, active, onPress }) {
 function SuggestionChip({ label, icon, onPress }) {
     return (
         <Pressable style={styles.suggestionChip} onPress={onPress}>
-            <Text style={styles.suggestionChipIcon}>{icon}</Text>
+            <Ionicons name={icon} size={14} color={colors.muted} />
             <Text style={styles.suggestionChipText}>{label}</Text>
         </Pressable>
     );
@@ -68,18 +68,19 @@ function SuggestionChip({ label, icon, onPress }) {
 // ---------------------------------------------------------------------------
 
 function BrandRecommendationCard({ brand, productCount, avgRating, onPress }) {
-    const starDisplay =
-        "★".repeat(Math.floor(avgRating)) + "☆".repeat(5 - Math.floor(avgRating));
-
     return (
         <Pressable style={styles.recommendCard} onPress={onPress}>
             <View style={styles.recommendCardContent}>
                 <Text style={styles.recommendBrand}>{brand}</Text>
-                <Text style={styles.recommendCount}>{productCount} products</Text>
-                <Text style={styles.recommendRating}>
-                    {starDisplay} {avgRating.toFixed(1)} average rating
-                </Text>
+                <View style={styles.recommendMeta}>
+                    <Text style={styles.recommendCount}>{productCount} products</Text>
+                    <View style={styles.recommendRatingRow}>
+                        <Ionicons name="star" size={12} color={colors.secondary} />
+                        <Text style={styles.recommendRating}>{avgRating.toFixed(1)}</Text>
+                    </View>
+                </View>
             </View>
+            <Ionicons name="chevron-forward" size={18} color={colors.muted} />
         </Pressable>
     );
 }
@@ -178,9 +179,6 @@ export function SearchScreen({ navigation }) {
         navigation.setOptions({
             headerTitle: () => (
                 <View style={styles.searchHeader}>
-                    <Pressable onPress={() => navigation.goBack()} style={styles.backBtn}>
-                        <Ionicons name="chevron-back" size={24} color={colors.text} />
-                    </Pressable>
                     <TextInput
                         ref={searchInputRef}
                         style={styles.searchInput}
@@ -202,14 +200,15 @@ export function SearchScreen({ navigation }) {
                     />
                     {query.length > 0 ? (
                         <Pressable onPress={() => setQuery("")} style={styles.headerIconBtn}>
-                            <Ionicons name="close-circle" size={22} color={colors.muted} />
+                            <Ionicons name="close-circle" size={20} color={colors.muted} />
                         </Pressable>
-                    ) : (
-                        <View style={styles.headerIconBtn}>
-                            <Ionicons name="search" size={22} color={colors.muted} />
-                        </View>
-                    )}
+                    ) : null}
                 </View>
+            ),
+            headerLeft: () => (
+                <Pressable onPress={() => navigation.goBack()} style={styles.backBtn}>
+                    <Ionicons name="chevron-back" size={24} color={colors.primary} />
+                </Pressable>
             ),
             headerBackVisible: false,
             headerTitleContainerStyle: {
@@ -220,8 +219,7 @@ export function SearchScreen({ navigation }) {
                 backgroundColor: colors.white,
                 shadowOpacity: 0,
                 elevation: 0,
-                borderBottomWidth: 1,
-                borderBottomColor: colors.border,
+                borderBottomWidth: 0,
             },
         });
     }, [navigation, query]);
@@ -401,6 +399,7 @@ export function SearchScreen({ navigation }) {
                     horizontal
                     showsHorizontalScrollIndicator={false}
                     style={styles.activeFilterRow}
+                    contentContainerStyle={styles.activeFilterRowContent}
                 >
                     {activeFilters.category && (
                         <FilterChip
@@ -466,7 +465,7 @@ export function SearchScreen({ navigation }) {
                                 {searchHistory.map((term, index) => (
                                     <SuggestionChip
                                         key={`recent-${index}`}
-                                        icon="🔍"
+                                        icon="search-outline"
                                         label={term}
                                         onPress={() => {
                                             setQuery(term);
@@ -487,7 +486,7 @@ export function SearchScreen({ navigation }) {
                                 {trending.map((term, index) => (
                                     <SuggestionChip
                                         key={`trend-${index}`}
-                                        icon="🔥"
+                                        icon="flame-outline"
                                         label={term}
                                         onPress={() => {
                                             setQuery(term);
@@ -507,6 +506,7 @@ export function SearchScreen({ navigation }) {
                             horizontal
                             showsHorizontalScrollIndicator={false}
                             style={styles.chipsScroll}
+                            contentContainerStyle={styles.chipsScrollContent}
                         >
                             <FilterChip
                                 label="All"
@@ -528,6 +528,7 @@ export function SearchScreen({ navigation }) {
                             horizontal
                             showsHorizontalScrollIndicator={false}
                             style={styles.chipsScroll}
+                            contentContainerStyle={styles.chipsScrollContent}
                         >
                             {brands.map((brand) => (
                                 <FilterChip
@@ -544,6 +545,7 @@ export function SearchScreen({ navigation }) {
                             horizontal
                             showsHorizontalScrollIndicator={false}
                             style={styles.chipsScroll}
+                            contentContainerStyle={styles.chipsScrollContent}
                         >
                             {colorsList.map((color) => (
                                 <FilterChip
@@ -704,14 +706,18 @@ const styles = StyleSheet.create({
 
     // ---------- Active Filters ----------
     activeFilterRow: {
-        paddingHorizontal: 16,
-        paddingVertical: 8,
+        maxHeight: 50,
         backgroundColor: colors.background,
         borderBottomWidth: 1,
         borderBottomColor: colors.border,
     },
+    activeFilterRowContent: {
+        flexDirection: "row",
+        alignItems: "center",
+        paddingHorizontal: 16,
+    },
     clearAllChips: {
-        color: colors.danger,
+        color: colors.muted,
         fontWeight: "600",
         fontSize: 13,
         paddingVertical: 8,
@@ -723,31 +729,32 @@ const styles = StyleSheet.create({
         flex: 1,
     },
     scrollContentInner: {
-        paddingHorizontal: 16,
-        paddingTop: 12,
+        paddingHorizontal: 20,
+        paddingTop: 16,
     },
 
     // ---------- Sections ----------
     section: {
-        marginBottom: 20,
+        marginBottom: 24,
     },
     sectionHeader: {
         flexDirection: "row",
         justifyContent: "space-between",
         alignItems: "center",
-        marginBottom: 10,
+        marginBottom: 8,
     },
     sectionTitle: {
-        fontSize: 17,
-        fontWeight: "bold",
+        fontSize: 16,
+        fontWeight: "600",
         color: colors.text,
-        marginBottom: 10,
+        letterSpacing: -0.3,
+        marginBottom: 12,
         marginTop: 4,
     },
     clearText: {
         fontSize: 13,
-        color: colors.danger,
-        fontWeight: "600",
+        color: colors.muted,
+        fontWeight: "500",
     },
 
     // ---------- Chips ----------
@@ -755,16 +762,22 @@ const styles = StyleSheet.create({
         flexDirection: "row",
         flexWrap: "wrap",
         gap: 8,
+        minHeight: 44,
     },
     chipsScroll: {
+        height: 48,
         marginBottom: 8,
     },
+    chipsScrollContent: {
+        paddingRight: 24,
+        alignItems: "center",
+    },
     chip: {
-        paddingVertical: 7,
-        paddingHorizontal: 14,
-        borderRadius: 20,
+        paddingVertical: 10,
+        paddingHorizontal: 20,
+        borderRadius: 24,
         backgroundColor: colors.white,
-        marginRight: 8,
+        marginRight: 10,
         borderWidth: 1,
         borderColor: colors.border,
         marginBottom: 8,
@@ -775,14 +788,15 @@ const styles = StyleSheet.create({
     },
     chipText: {
         color: colors.text,
-        fontWeight: "600",
+        fontWeight: "500",
         fontSize: 13,
     },
     chipTextActive: {
         color: colors.white,
+        fontWeight: "600",
     },
 
-    // ---------- Suggestion Chips (trending / recent) ----------
+    // ---------- Suggestion Chips ----------
     suggestionChip: {
         flexDirection: "row",
         alignItems: "center",
@@ -792,10 +806,7 @@ const styles = StyleSheet.create({
         paddingHorizontal: 14,
         borderWidth: 1,
         borderColor: colors.border,
-        gap: 4,
-    },
-    suggestionChipIcon: {
-        fontSize: 14,
+        gap: 6,
     },
     suggestionChipText: {
         color: colors.text,
@@ -805,55 +816,73 @@ const styles = StyleSheet.create({
 
     // ---------- Recommendations ----------
     recommendCard: {
+        flexDirection: "row",
+        alignItems: "center",
+        justifyContent: "space-between",
         backgroundColor: colors.white,
         borderRadius: 14,
-        padding: 14,
+        padding: 16,
         marginBottom: 10,
         borderWidth: 1,
         borderColor: colors.border,
     },
-    recommendCardContent: {},
+    recommendCardContent: {
+        flex: 1,
+        gap: 4,
+    },
     recommendBrand: {
-        fontSize: 17,
-        fontWeight: "bold",
+        fontSize: 16,
+        fontWeight: "600",
         color: colors.text,
-        marginBottom: 2,
+        letterSpacing: -0.2,
+    },
+    recommendMeta: {
+        flexDirection: "row",
+        alignItems: "center",
+        gap: 12,
     },
     recommendCount: {
         fontSize: 13,
         color: colors.muted,
-        marginBottom: 2,
+    },
+    recommendRatingRow: {
+        flexDirection: "row",
+        alignItems: "center",
+        gap: 3,
     },
     recommendRating: {
         fontSize: 13,
-        color: colors.yellow,
+        color: colors.secondary,
+        fontWeight: "600",
     },
 
     // ---------- Suggestions ----------
     suggestionsContainer: {
         backgroundColor: colors.white,
-        borderRadius: 14,
-        padding: 12,
+        borderRadius: 16,
+        padding: 8,
         marginBottom: 16,
         borderWidth: 1,
         borderColor: colors.border,
     },
     suggestionGroup: {
-        marginBottom: 12,
+        marginBottom: 8,
     },
     suggestionGroupTitle: {
-        fontSize: 13,
-        fontWeight: "bold",
+        fontSize: 12,
+        fontWeight: "600",
         color: colors.muted,
+        letterSpacing: 0.8,
         textTransform: "uppercase",
-        letterSpacing: 0.5,
-        marginBottom: 6,
+        marginBottom: 4,
+        paddingHorizontal: 8,
+        paddingTop: 4,
     },
     suggestionItem: {
         flexDirection: "row",
         alignItems: "center",
-        paddingVertical: 8,
-        paddingHorizontal: 4,
+        paddingVertical: 10,
+        paddingHorizontal: 8,
         gap: 10,
         borderBottomWidth: StyleSheet.hairlineWidth,
         borderBottomColor: colors.border,
@@ -866,13 +895,14 @@ const styles = StyleSheet.create({
 
     // ---------- Results ----------
     resultsList: {
-        paddingHorizontal: 16,
+        paddingHorizontal: 20,
         paddingTop: 8,
         paddingBottom: 20,
     },
     resultsCount: {
         fontSize: 13,
         color: colors.muted,
+        fontWeight: "500",
         marginBottom: 10,
     },
 
@@ -887,8 +917,9 @@ const styles = StyleSheet.create({
     },
     emptyTitle: {
         fontSize: 20,
-        fontWeight: "bold",
+        fontWeight: "600",
         color: colors.text,
+        letterSpacing: -0.3,
         marginBottom: 8,
     },
     emptySubtitle: {
@@ -899,17 +930,19 @@ const styles = StyleSheet.create({
     emptySuggestion: {
         fontSize: 14,
         color: colors.muted,
-        marginBottom: 2,
+        marginBottom: 4,
     },
     clearFilterBtn: {
         marginTop: 16,
-        backgroundColor: colors.primary,
         paddingVertical: 10,
-        paddingHorizontal: 20,
-        borderRadius: 10,
+        paddingHorizontal: 24,
+        borderRadius: 22,
+        borderWidth: 1,
+        borderColor: colors.border,
     },
     clearFilterBtnText: {
-        color: colors.white,
-        fontWeight: "bold",
+        fontSize: 14,
+        fontWeight: "600",
+        color: colors.text,
     },
 });

@@ -19,19 +19,32 @@ export function SearchCard({ handbag, onPress, onFavoritePress, isFavorite }) {
             <Image source={{ uri: handbag.uri }} style={styles.image} />
 
             <View style={styles.content}>
-                <Text style={styles.name} numberOfLines={2}>
-                    {handbag.handbagName}
-                </Text>
+                <View style={styles.topRow}>
+                    <View style={styles.titleBlock}>
+                        <Text style={styles.brand}>{handbag.brand}</Text>
+                        <Text style={styles.name} numberOfLines={1}>
+                            {handbag.handbagName}
+                        </Text>
+                    </View>
+                    <Pressable style={styles.favBtn} onPress={onFavoritePress}>
+                        <Ionicons
+                            name={isFavorite ? "heart" : "heart-outline"}
+                            size={18}
+                            color={isFavorite ? colors.secondary : colors.muted}
+                        />
+                    </Pressable>
+                </View>
 
-                <Text style={styles.brand}>{handbag.brand}</Text>
                 <Text style={styles.category}>{handbag.category}</Text>
 
                 <View style={styles.priceRow}>
                     <Text style={styles.cost}>{formatCurrency(handbag.cost)}</Text>
                     {handbag.percentOff > 0 && (
-                        <Text style={styles.sale}>
-                            -{formatPercent(handbag.percentOff)} OFF
-                        </Text>
+                        <View style={styles.saleBadge}>
+                            <Text style={styles.saleText}>
+                                -{formatPercent(handbag.percentOff)}
+                            </Text>
+                        </View>
                     )}
                 </View>
 
@@ -43,14 +56,6 @@ export function SearchCard({ handbag, onPress, onFavoritePress, isFavorite }) {
                     </Text>
                 </View>
             </View>
-
-            <Pressable style={styles.favoriteBtn} onPress={onFavoritePress}>
-                <Ionicons
-                    name={isFavorite ? "heart" : "heart-outline"}
-                    size={22}
-                    color={isFavorite ? colors.danger : colors.muted}
-                />
-            </Pressable>
         </Pressable>
     );
 }
@@ -64,70 +69,93 @@ const styles = StyleSheet.create({
         borderWidth: 1,
         borderColor: colors.border,
         flexDirection: "row",
-        position: "relative",
     },
     image: {
         width: 120,
-        height: 140,
+        height: 150,
         resizeMode: "cover",
-        backgroundColor: "#EEE",
+        backgroundColor: "#F0F0F0",
     },
     content: {
         flex: 1,
-        padding: 12,
-        paddingRight: 40,
+        padding: 14,
+        justifyContent: "space-between",
+    },
+    topRow: {
+        flexDirection: "row",
+        justifyContent: "space-between",
+        alignItems: "flex-start",
+        gap: 8,
+    },
+    titleBlock: {
+        flex: 1,
     },
     name: {
         fontSize: 15,
-        fontWeight: "bold",
+        fontWeight: "500",
         color: colors.text,
-        marginBottom: 2,
+        letterSpacing: -0.2,
     },
     brand: {
-        fontSize: 13,
-        color: colors.primary,
+        fontSize: 10,
+        color: colors.muted,
         fontWeight: "600",
-        marginBottom: 1,
+        letterSpacing: 1.2,
+        textTransform: "uppercase",
+        marginBottom: 2,
+    },
+    favBtn: {
+        width: 30,
+        height: 30,
+        borderRadius: 15,
+        backgroundColor: colors.overlay,
+        alignItems: "center",
+        justifyContent: "center",
     },
     category: {
         fontSize: 12,
         color: colors.muted,
-        marginBottom: 6,
+        fontWeight: "500",
+        marginTop: -4,
     },
     priceRow: {
         flexDirection: "row",
         alignItems: "center",
         gap: 8,
-        marginBottom: 6,
+        marginVertical: 4,
     },
     cost: {
         fontSize: 17,
-        fontWeight: "bold",
-        color: colors.text,
+        fontWeight: "600",
+        color: colors.primary,
+        letterSpacing: -0.3,
     },
-    sale: {
-        fontSize: 12,
-        fontWeight: "bold",
+    saleBadge: {
+        backgroundColor: colors.overlay,
+        paddingVertical: 2,
+        paddingHorizontal: 8,
+        borderRadius: 4,
+    },
+    saleText: {
+        fontSize: 11,
+        fontWeight: "700",
         color: colors.danger,
+        letterSpacing: 0.3,
     },
     bottomRow: {
         flexDirection: "row",
         alignItems: "center",
-        gap: 4,
+        gap: 6,
         flexWrap: "wrap",
     },
     stars: {
-        fontSize: 13,
-        color: colors.yellow,
+        fontSize: 12,
+        color: colors.secondary,
+        letterSpacing: 1,
     },
     ratingText: {
-        fontSize: 12,
+        fontSize: 11,
         color: colors.muted,
-    },
-    favoriteBtn: {
-        position: "absolute",
-        top: 8,
-        right: 8,
-        padding: 4,
+        fontWeight: "500",
     },
 });

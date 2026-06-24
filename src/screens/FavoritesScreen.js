@@ -6,6 +6,7 @@ import {
   Alert,
   Pressable,
   StyleSheet,
+  SafeAreaView,
 } from "react-native";
 import { useFocusEffect } from "@react-navigation/native";
 import { Ionicons } from "@expo/vector-icons";
@@ -86,30 +87,32 @@ export function FavoritesScreen({ navigation }) {
   };
 
   return (
-    <View style={styles.container}>
+    <SafeAreaView style={styles.container}>
+      <View style={styles.header}>
+        <Text style={styles.headerTitle}>Favorites</Text>
+        {favorites.length > 0 && !selectMode && (
+          <Pressable onPress={toggleSelectMode} style={styles.editBtn}>
+            <Text style={styles.editBtnText}>Edit</Text>
+          </Pressable>
+        )}
+      </View>
+
       <FlatList
         data={favorites}
         keyExtractor={(item) => item.id}
         showsVerticalScrollIndicator={false}
-        ListHeaderComponent={
-          !selectMode && favorites.length > 0 ? (
-            <View style={styles.actionRow}>
-              <Pressable onPress={toggleSelectMode}>
-                <Text style={styles.selectText}>Select</Text>
-              </Pressable>
-              <Pressable
-                onPress={() => {
-                  setSelectMode(true);
-                  setSelectedIds(favorites.map((f) => f.id));
-                }}
-              >
-                <Text style={styles.selectAllText}>Select All</Text>
-              </Pressable>
-            </View>
-          ) : null
-        }
+        contentContainerStyle={[
+          styles.listContent,
+          selectMode && styles.listContentWithBar,
+        ]}
         ListEmptyComponent={
-          <Text style={styles.empty}>Your favorite list is empty.</Text>
+          <View style={styles.emptyState}>
+            <Ionicons name="heart-outline" size={64} color={colors.border} />
+            <Text style={styles.emptyTitle}>No favorites yet</Text>
+            <Text style={styles.emptySubtitle}>
+              Tap the heart icon on a handbag to save it here
+            </Text>
+          </View>
         }
         renderItem={({ item }) => (
           <HandbagCard
@@ -129,87 +132,158 @@ export function FavoritesScreen({ navigation }) {
       />
 
       {selectMode && (
-        <View style={styles.floatingBar}>
-          <Pressable
-            onPress={handleDeleteSelected}
-            style={styles.floatingBtnDelete}
-          >
-            <Ionicons name="trash-outline" size={20} color={colors.white} />
-            <Text style={styles.floatingBtnText}>Delete</Text>
+        <View style={styles.floatingActions}>
+          <Pressable onPress={handleDeleteSelected} style={styles.floatingDeleteBtn}>
+            <Ionicons name="trash-outline" size={16} color={colors.white} />
+            <Text style={styles.floatingDeleteText}>
+              Delete ({selectedIds.length})
+            </Text>
           </Pressable>
-          <Pressable onPress={handleCancelSelect} style={styles.floatingBtnClose}>
-            <Ionicons name="close" size={22} color={colors.white} />
+          <Pressable
+            onPress={() =>
+              setSelectedIds(
+                selectedIds.length === favorites.length
+                  ? []
+                  : favorites.map((f) => f.id),
+              )
+            }
+            style={styles.floatingSelectBtn}
+          >
+            <Text style={styles.floatingSelectText}>
+              {selectedIds.length === favorites.length
+                ? "Deselect All"
+                : "Select All"}
+            </Text>
+          </Pressable>
+          <Pressable onPress={handleCancelSelect} style={styles.floatingCancelBtn}>
+            <Text style={styles.floatingCancelText}>Cancel</Text>
           </Pressable>
         </View>
       )}
-    </View>
+    </SafeAreaView>
   );
 }
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    padding: 16,
     backgroundColor: colors.background,
   },
-  actionRow: {
+  header: {
     flexDirection: "row",
-    justifyContent: "flex-end",
-    gap: 16,
-    marginBottom: 12,
+    justifyContent: "space-between",
+    alignItems: "center",
+    paddingHorizontal: 20,
+    paddingTop: 20,
+    paddingBottom: 8,
   },
-  selectText: {
-    color: colors.primary,
-    fontWeight: "bold",
-    fontSize: 16,
+  headerTitle: {
+    fontSize: 28,
+    fontWeight: "700",
+    color: colors.text,
+    letterSpacing: -0.5,
   },
-  selectAllText: {
-    color: colors.primary,
-    fontWeight: "bold",
-    fontSize: 16,
+  editBtn: {
+    paddingVertical: 6,
+    paddingHorizontal: 16,
+    borderRadius: 18,
+    borderWidth: 1,
+    borderColor: colors.border,
   },
-  empty: {
-    textAlign: "center",
+  editBtnText: {
+    fontSize: 13,
+    fontWeight: "600",
+    color: colors.text,
+  },
+  listContent: {
+    paddingHorizontal: 20,
+    paddingTop: 8,
+    paddingBottom: 24,
+  },
+  listContentWithBar: {
+    paddingBottom: 80,
+  },
+  emptyState: {
+    alignItems: "center",
+    justifyContent: "center",
+    paddingTop: 80,
+    gap: 12,
+  },
+  emptyTitle: {
+    fontSize: 20,
+    fontWeight: "600",
+    color: colors.text,
+    letterSpacing: -0.3,
+  },
+  emptySubtitle: {
+    fontSize: 14,
     color: colors.muted,
-    marginTop: 50,
+    textAlign: "center",
+    lineHeight: 20,
+    paddingHorizontal: 40,
   },
-  floatingBar: {
+  floatingActions: {
     position: "absolute",
     bottom: 24,
     right: 16,
     flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "flex-end",
     gap: 10,
   },
-  floatingBtnDelete: {
+  floatingDeleteBtn: {
     flexDirection: "row",
     alignItems: "center",
     gap: 6,
-    backgroundColor: colors.danger,
-    paddingVertical: 12,
-    paddingHorizontal: 22,
-    borderRadius: 28,
-    elevation: 8,
-    shadowColor: colors.danger,
-    shadowOffset: { width: 0, height: 4 },
-    shadowOpacity: 0.35,
-    shadowRadius: 6,
-  },
-  floatingBtnClose: {
-    alignItems: "center",
-    justifyContent: "center",
-    backgroundColor: "rgba(0,0,0,0.5)",
-    width: 44,
-    height: 44,
+    backgroundColor: "#DC2626",
+    paddingVertical: 10,
+    paddingHorizontal: 18,
     borderRadius: 22,
-    elevation: 6,
     shadowColor: "#000",
-    shadowOffset: { width: 0, height: 3 },
-    shadowOpacity: 0.25,
-    shadowRadius: 4,
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.15,
+    shadowRadius: 6,
+    elevation: 4,
   },
-  floatingBtnText: {
+  floatingDeleteText: {
+    fontSize: 13,
+    fontWeight: "600",
     color: colors.white,
-    fontWeight: "bold",
-    fontSize: 15,
+  },
+  floatingSelectBtn: {
+    alignItems: "center",
+    backgroundColor: colors.primary,
+    paddingVertical: 10,
+    paddingHorizontal: 18,
+    borderRadius: 22,
+    shadowColor: "#000",
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.15,
+    shadowRadius: 6,
+    elevation: 4,
+  },
+  floatingSelectText: {
+    fontSize: 13,
+    fontWeight: "600",
+    color: colors.white,
+  },
+  floatingCancelBtn: {
+    alignItems: "center",
+    backgroundColor: colors.white,
+    paddingVertical: 10,
+    paddingHorizontal: 18,
+    borderRadius: 22,
+    borderWidth: 1,
+    borderColor: colors.border,
+    shadowColor: "#000",
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.1,
+    shadowRadius: 4,
+    elevation: 3,
+  },
+  floatingCancelText: {
+    fontSize: 13,
+    fontWeight: "600",
+    color: colors.text,
   },
 });

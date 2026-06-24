@@ -7,6 +7,7 @@ export function BrandFilter({ brands, selectedBrand, onSelectBrand }) {
       horizontal
       showsHorizontalScrollIndicator={false}
       style={styles.container}
+      contentContainerStyle={styles.content}
     >
       {brands.map((brand) => {
         const active = selectedBrand === brand;
@@ -29,26 +30,34 @@ export function BrandFilter({ brands, selectedBrand, onSelectBrand }) {
 
 const styles = StyleSheet.create({
   container: {
-    marginBottom: 12,
-    height: 50,
+    marginBottom: 8,
+    height: 48,
+  },
+  content: {
+    paddingRight: 20,
+    alignItems: "center",
   },
   item: {
-    paddingVertical: 8,
-    paddingHorizontal: 14,
-    borderRadius: 20,
+    paddingVertical: 12,
+    paddingHorizontal: 24,
+    borderRadius: 24,
     backgroundColor: colors.white,
-    marginRight: 8,
+    marginRight: 10,
     borderWidth: 1,
     borderColor: colors.border,
   },
   activeItem: {
     backgroundColor: colors.primary,
+    borderColor: colors.primary,
   },
   text: {
     color: colors.text,
-    fontWeight: "600",
+    fontWeight: "500",
+    fontSize: 13,
+    letterSpacing: 0.3,
   },
   activeText: {
     color: colors.white,
+    fontWeight: "600",
   },
 });
