@@ -12,7 +12,7 @@ import {
 import { Ionicons } from "@expo/vector-icons";
 import { useFocusEffect } from "@react-navigation/native";
 
-import { getHandbags } from "../api/handbagApi";
+import { useProducts } from "../hooks/useProducts";
 import { SearchCard } from "../components/SearchCard";
 import { colors } from "../constants/colors";
 import {
@@ -89,10 +89,9 @@ function BrandRecommendationCard({ brand, productCount, avgRating, onPress }) {
 // ---------------------------------------------------------------------------
 
 export function SearchScreen({ navigation }) {
-    const [handbags, setHandbags] = useState([]);
+    const { products: handbags, loading: productsLoading } = useProducts();
     const [favorites, setFavorites] = useState([]);
-    const [loading, setLoading] = useState(false);
-    const [initialLoading, setInitialLoading] = useState(true);
+    const initialLoading = productsLoading && handbags.length === 0;
 
     // Search state
     const [query, setQuery] = useState("");
@@ -115,23 +114,17 @@ export function SearchScreen({ navigation }) {
     // Data loading
     // -----------------------------------------------------------------------
 
-    const loadData = async () => {
-        setLoading(true);
-        const [handbagData, favoriteData, historyData] = await Promise.all([
-            getHandbags(),
-            getFavorites(),
-            getSearchHistory(),
-        ]);
-        setHandbags(handbagData);
-        setFavorites(favoriteData);
-        setSearchHistory(historyData);
-        setLoading(false);
-        setInitialLoading(false);
-    };
-
     useFocusEffect(
         useCallback(() => {
-            loadData();
+            const loadUserData = async () => {
+                const [favoriteData, historyData] = await Promise.all([
+                    getFavorites(),
+                    getSearchHistory(),
+                ]);
+                setFavorites(favoriteData);
+                setSearchHistory(historyData);
+            };
+            loadUserData();
         }, []),
     );
 
@@ -192,12 +185,7 @@ export function SearchScreen({ navigation }) {
                         onBlur={() => setIsFocused(false)}
                         returnKeyType="search"
                         onSubmitEditing={() => {
-                            const trimmed = query.trim();
-                            if (trimmed) {
-                                setIsFocused(false);
-                                searchInputRef.current?.blur();
-                                addSearchTerm(trimmed).then(setSearchHistory);
-                            }
+                            handleSearch(query);
                         }}
                     />
                     {query.length > 0 ? (
@@ -224,7 +212,7 @@ export function SearchScreen({ navigation }) {
                 borderBottomColor: colors.border,
             },
         });
-    }, [navigation, query]);
+    }, [navigation, query, handleSearch]);
 
     // -----------------------------------------------------------------------
     // Filtered + ranked results (computed from debounced query)
@@ -305,10 +293,14 @@ export function SearchScreen({ navigation }) {
     );
 
     const handleProductPress = useCallback(
-        (handbag) => {
-            navigation.navigate("SearchDetail", { handbag });
+        async (handbag) => {
+            const trimmed = query.trim();
+            if (trimmed) {
+                await addSearchTerm(trimmed);
+            }
+            navigation.navigate("SearchDetail", { handbag, allHandbags: handbags });
         },
-        [navigation],
+        [navigation, query, handbags],
     );
 
     // -----------------------------------------------------------------------
@@ -630,7 +622,11 @@ export function SearchScreen({ navigation }) {
                                         <Pressable
                                             key={product.id}
                                             style={styles.suggestionItem}
-                                            onPress={() => {
+                                            onPress={async () => {
+                                                const trimmed = query.trim();
+                                                if (trimmed) {
+                                                    await addSearchTerm(trimmed);
+                                                }
                                                 navigation.navigate("SearchDetail", {
                                                     handbag: product,
                                                 });

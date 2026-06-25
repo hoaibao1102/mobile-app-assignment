@@ -3,18 +3,6 @@ import { Ionicons } from "@expo/vector-icons";
 import { colors } from "../constants/colors";
 import { formatCurrency, formatPercent } from "../utils/formatters";
 
-function calcAvgRating(review = []) {
-  if (review.length === 0) return 0;
-  const sum = review.reduce((acc, r) => acc + r.rating, 0);
-  return (sum / review.length).toFixed(1);
-}
-
-function renderStars(rating) {
-  const full = Math.floor(rating);
-  const empty = 5 - full;
-  return "★".repeat(full) + "☆".repeat(empty);
-}
-
 export function HandbagCard({
   handbag,
   onPress,
@@ -25,7 +13,10 @@ export function HandbagCard({
   onSelectPress,
   onLongPress,
 }) {
-  const avgRating = calcAvgRating(handbag.review);
+  const reviewCount = (handbag.review || []).length;
+  const avgRating = reviewCount > 0
+    ? (handbag.review.reduce((acc, r) => acc + r.rating, 0) / reviewCount).toFixed(1)
+    : "0.0";
 
   const handlePress = () => {
     if (selectMode && onSelectPress) {
@@ -35,14 +26,40 @@ export function HandbagCard({
     }
   };
 
+  const hasDiscount = handbag.percentOff > 0;
+  const finalPrice = hasDiscount ? handbag.cost * (1 - handbag.percentOff) : handbag.cost;
+
   return (
     <Pressable
-      style={[styles.card, isSelected && styles.selectedCard]}
+      style={({ pressed }) => [
+        styles.card,
+        isSelected && styles.selectedCard,
+        pressed && { opacity: 0.85, transform: [{ scale: 0.98 }] },
+      ]}
       onPress={handlePress}
       onLongPress={onLongPress}
     >
       <View style={styles.imageContainer}>
         <Image source={{ uri: handbag.uri }} style={styles.image} />
+        
+        {/* Floating Discount Tag */}
+        {hasDiscount && (
+          <View style={styles.discountBadge}>
+            <Text style={styles.discountText}>-{formatPercent(handbag.percentOff)}</Text>
+          </View>
+        )}
+
+        {/* Floating Favorite Button */}
+        {!selectMode && (
+          <Pressable style={styles.favoriteButton} onPress={onFavoritePress}>
+            <Ionicons
+              name={isFavorite ? "heart" : "heart-outline"}
+              size={18}
+              color={isFavorite ? colors.danger : colors.text}
+            />
+          </Pressable>
+        )}
+
         {selectMode && (
           <View style={styles.checkboxOverlay}>
             <Ionicons
@@ -55,45 +72,32 @@ export function HandbagCard({
       </View>
 
       <View style={styles.content}>
-        <View style={styles.topRow}>
-          <Text style={styles.name} numberOfLines={2}>
-            {handbag.handbagName}
-          </Text>
+        <Text style={styles.brand} numberOfLines={1}>
+          {handbag.brand.toUpperCase()}
+        </Text>
+        <Text style={styles.name} numberOfLines={2}>
+          {handbag.handbagName}
+        </Text>
 
-          {!selectMode && (
-            <Pressable onPress={onFavoritePress}>
-              <Ionicons
-                name={isFavorite ? "heart" : "heart-outline"}
-                size={26}
-                color={isFavorite ? colors.danger : colors.muted}
-              />
-            </Pressable>
+        <View style={styles.priceRow}>
+          <Text style={styles.price}>${formatCurrency(finalPrice)}</Text>
+          {hasDiscount && (
+            <Text style={styles.originalPrice}>${formatCurrency(handbag.cost)}</Text>
           )}
-        </View>
-
-        <Text style={styles.brand}>{handbag.brand}</Text>
-
-        <View style={styles.infoRow}>
-          <Text style={styles.cost}>{formatCurrency(handbag.cost)}</Text>
-          <Text style={styles.sale}>-{formatPercent(handbag.percentOff)}</Text>
         </View>
 
         <View style={styles.bottomRow}>
           <View style={styles.ratingRow}>
-            <Text style={styles.stars}>{renderStars(Number(avgRating))}</Text>
+            <Ionicons name="star" size={13} color={colors.yellow} />
             <Text style={styles.ratingText}>{avgRating}</Text>
+            <Text style={styles.reviewCountText}>({reviewCount})</Text>
           </View>
-
-          <View style={styles.genderRow}>
-            <Ionicons
-              name={handbag.gender ? "woman-outline" : "man-outline"}
-              size={16}
-              color={colors.success}
-            />
-            <Text style={styles.gender}>
-              {handbag.gender ? "Female" : "Male"}
-            </Text>
-          </View>
+          
+          <Ionicons
+            name={handbag.gender ? "woman-outline" : "man-outline"}
+            size={14}
+            color={colors.muted}
+          />
         </View>
       </View>
     </Pressable>
@@ -103,96 +107,121 @@ export function HandbagCard({
 const styles = StyleSheet.create({
   card: {
     backgroundColor: colors.white,
-    borderRadius: 18,
-    marginBottom: 14,
-    overflow: "hidden",
-    borderWidth: 1,
-    borderColor: colors.border,
-  },
-  image: {
-    width: "100%",
-    height: 210,
-    resizeMode: "cover",
-    backgroundColor: "#EEE",
-  },
-  content: {
-    padding: 14,
-  },
-  topRow: {
-    flexDirection: "row",
-    justifyContent: "space-between",
-    gap: 10,
-  },
-  name: {
+    borderRadius: 16,
+    margin: 6,
     flex: 1,
-    fontSize: 17,
-    fontWeight: "bold",
-    color: colors.text,
-  },
-  brand: {
-    marginTop: 6,
-    color: colors.muted,
-    fontWeight: "600",
-  },
-  infoRow: {
-    flexDirection: "row",
-    alignItems: "center",
-    marginTop: 10,
-    gap: 10,
-  },
-  cost: {
-    fontSize: 18,
-    fontWeight: "bold",
-    color: colors.primary,
-  },
-  sale: {
-    color: colors.danger,
-    fontWeight: "bold",
-  },
-  bottomRow: {
-    marginTop: 10,
-    flexDirection: "row",
-    justifyContent: "space-between",
-    alignItems: "center",
-  },
-  ratingRow: {
-    flexDirection: "row",
-    alignItems: "center",
-    gap: 4,
-  },
-  stars: {
-    fontSize: 14,
-    color: colors.yellow,
-    fontWeight: "bold",
-  },
-  ratingText: {
-    fontSize: 13,
-    color: colors.muted,
-    fontWeight: "600",
-  },
-  genderRow: {
-    flexDirection: "row",
-    alignItems: "center",
-    gap: 4,
-  },
-  gender: {
-    fontWeight: "bold",
-    color: colors.success,
-    fontSize: 13,
-  },
-  imageContainer: {
-    position: "relative",
-  },
-  checkboxOverlay: {
-    position: "absolute",
-    top: 10,
-    left: 10,
-    backgroundColor: "rgba(0,0,0,0.3)",
-    borderRadius: 14,
-    padding: 4,
+    overflow: "hidden",
+    shadowColor: "#000",
+    shadowOffset: { width: 0, height: 4 },
+    shadowOpacity: 0.05,
+    shadowRadius: 8,
+    elevation: 2,
+    borderWidth: 1,
+    borderColor: "rgba(0,0,0,0.02)",
   },
   selectedCard: {
     borderColor: colors.primary,
     borderWidth: 2,
+  },
+  imageContainer: {
+    position: "relative",
+    backgroundColor: "#F9F9F9",
+  },
+  image: {
+    width: "100%",
+    height: 160,
+    resizeMode: "cover",
+  },
+  discountBadge: {
+    position: "absolute",
+    top: 8,
+    left: 8,
+    backgroundColor: colors.danger,
+    paddingVertical: 3,
+    paddingHorizontal: 8,
+    borderRadius: 10,
+  },
+  discountText: {
+    color: colors.white,
+    fontSize: 10,
+    fontWeight: "bold",
+  },
+  favoriteButton: {
+    position: "absolute",
+    top: 8,
+    right: 8,
+    backgroundColor: "rgba(255, 255, 255, 0.9)",
+    borderRadius: 16,
+    padding: 6,
+    shadowColor: "#000",
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.1,
+    shadowRadius: 4,
+    elevation: 2,
+  },
+  checkboxOverlay: {
+    position: "absolute",
+    top: 8,
+    left: 8,
+    backgroundColor: "rgba(0,0,0,0.3)",
+    borderRadius: 14,
+    padding: 4,
+  },
+  content: {
+    padding: 12,
+  },
+  brand: {
+    fontSize: 9,
+    fontWeight: "bold",
+    color: colors.primary,
+    letterSpacing: 1,
+    marginBottom: 4,
+  },
+  name: {
+    fontSize: 13,
+    fontWeight: "600",
+    color: colors.text,
+    lineHeight: 18,
+    height: 36, // fixed height for two lines of text to align items in grid
+    marginBottom: 8,
+  },
+  priceRow: {
+    flexDirection: "row",
+    alignItems: "center",
+    gap: 6,
+    marginBottom: 8,
+  },
+  price: {
+    fontSize: 14,
+    fontWeight: "bold",
+    color: colors.text,
+  },
+  originalPrice: {
+    fontSize: 12,
+    color: colors.muted,
+    textDecorationLine: "line-through",
+  },
+  bottomRow: {
+    flexDirection: "row",
+    justifyContent: "space-between",
+    alignItems: "center",
+    borderTopWidth: StyleSheet.hairlineWidth,
+    borderTopColor: colors.border,
+    paddingTop: 8,
+    marginTop: 4,
+  },
+  ratingRow: {
+    flexDirection: "row",
+    alignItems: "center",
+    gap: 3,
+  },
+  ratingText: {
+    fontSize: 12,
+    fontWeight: "bold",
+    color: colors.text,
+  },
+  reviewCountText: {
+    fontSize: 11,
+    color: colors.muted,
   },
 });

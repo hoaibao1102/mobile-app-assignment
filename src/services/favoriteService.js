@@ -45,6 +45,18 @@ export async function removeFavorite(handbagId) {
   return newFavorites;
 }
 
+export async function removeMultipleFavorites(handbagIds) {
+  try {
+    const favorites = await getFavorites();
+    const newFavorites = favorites.filter((item) => !handbagIds.includes(item.id));
+    await saveFavorites(newFavorites);
+    return newFavorites;
+  } catch (error) {
+    console.log("Remove multiple favorites error:", error);
+    return [];
+  }
+}
+
 export async function clearFavorites() {
   await saveFavorites([]);
   return [];
